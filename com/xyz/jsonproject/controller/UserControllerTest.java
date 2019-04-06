@@ -74,14 +74,7 @@ public class UserControllerTest {
 		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
 				"nastasia.net", company);
 		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/accountCreation").accept(MediaType.APPLICATION_JSON)
-				.content(asJsonString(userRequest)).contentType(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());	
+		assertResults(userRequest);	
 	}
 	
 	@Test
@@ -92,14 +85,7 @@ public class UserControllerTest {
 		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", null, "010-692-6593",
 				"nastasia.net", company);
 		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/accountCreation").accept(MediaType.APPLICATION_JSON)
-				.content(asJsonString(userRequest)).contentType(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());	
+		assertResults(userRequest);	
 	}
 	
 	@Test
@@ -109,14 +95,7 @@ public class UserControllerTest {
 		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
 				"nastasia.net", null);
 		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/accountCreation").accept(MediaType.APPLICATION_JSON)
-				.content(asJsonString(userRequest)).contentType(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());	
+		assertResults(userRequest);	
 	}
 	
 	@Test
@@ -129,14 +108,7 @@ public class UserControllerTest {
 		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
 				"nastasia.net", company);
 		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/accountCreation").accept(MediaType.APPLICATION_JSON)
-				.content(asJsonString(userRequest)).contentType(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());	
+		assertResults(userRequest);	
 	}
 	
 	@Test
@@ -144,14 +116,7 @@ public class UserControllerTest {
 		
 		UserRequest userRequest = new UserRequest();
 		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/accountCreation").accept(MediaType.APPLICATION_JSON)
-				.content(asJsonString(userRequest)).contentType(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());	
+		assertResults(userRequest);	
 	}
 	
 	@Test
@@ -164,14 +129,7 @@ public class UserControllerTest {
 		UserRequest userRequest = new UserRequest(null,"77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
 				"nastasia.net", company);
 		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/accountCreation").accept(MediaType.APPLICATION_JSON)
-				.content(asJsonString(userRequest)).contentType(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());	
+		assertResults(userRequest);	
 	}
 	
 	@Test
@@ -184,14 +142,7 @@ public class UserControllerTest {
 		UserRequest userRequest = new UserRequest("99","77","88", null, "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
 				"nastasia.net", company);
 		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/accountCreation").accept(MediaType.APPLICATION_JSON)
-				.content(asJsonString(userRequest)).contentType(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());	
+		assertResults(userRequest);
 	}
 	
 	@Test
@@ -204,14 +155,7 @@ public class UserControllerTest {
 		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", null, "Sh@annissa.tv", address, "010-692-6593",
 				"nastasia.net", company);
 		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/accountCreation").accept(MediaType.APPLICATION_JSON)
-				.content(asJsonString(userRequest)).contentType(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());	
+		assertResults(userRequest);	
 	}
 	
 	@Test
@@ -224,14 +168,7 @@ public class UserControllerTest {
 		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, null,
 				"nastasia.net", company);
 		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/accountCreation").accept(MediaType.APPLICATION_JSON)
-				.content(asJsonString(userRequest)).contentType(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());	
+		assertResults(userRequest);
 	}
 
 	/**
@@ -246,6 +183,21 @@ public class UserControllerTest {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	/**
+	 * @param userRequest takes as input
+	 * @throws Exception
+	 */
+	private void assertResults(UserRequest userRequest) throws Exception {
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/accountCreation").accept(MediaType.APPLICATION_JSON)
+				.content(asJsonString(userRequest)).contentType(MediaType.APPLICATION_JSON);
+
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+		MockHttpServletResponse response = result.getResponse();
+
+		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
 	}
 
 }
