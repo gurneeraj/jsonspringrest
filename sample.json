@@ -1,0 +1,21 @@
+{
+    "requestId": "347",
+    "userId": "678",
+    "clientId": "492",
+    "name": "Gurneeraj Singh",
+    "username": "gurneeraj",
+    "email": "gurneeraj@gmail.com",
+    "address": {
+        "street": "Fryent Street",
+        "suite": "Suite 786",
+        "city": "Calgary",
+        "zipcode": "59590-4157"
+    },
+    "phone": "647-819-5766",
+    "website": "gurneeraj.com",
+    "company": {
+        "name": "XYZ works",
+        "catchPhrase": "Best company ever",
+        "bs": "car marketing company"
+    }
+}
