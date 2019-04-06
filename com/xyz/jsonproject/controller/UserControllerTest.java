@@ -157,7 +157,7 @@ public class UserControllerTest {
 	 * @param userRequest takes as input
 	 * @throws Exception
 	 */
-	private void assertResults(UserRequest userRequest) throws Exception {
+	private void assertResult(UserRequest userRequest) throws Exception {
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/accountCreation").accept(MediaType.APPLICATION_JSON)
 				.content(asJsonString(userRequest)).contentType(MediaType.APPLICATION_JSON);
 
