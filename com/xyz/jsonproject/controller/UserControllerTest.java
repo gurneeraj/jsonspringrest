@@ -71,7 +71,7 @@ public class UserControllerTest {
 	public void accountCreationAddressCityMissing() throws Exception {
 		userRequest.getAddress().setCity(null);
 		
-		assertResults(userRequest);	
+		assertResult(userRequest);	
 	}
 	
 	@Test
@@ -79,34 +79,34 @@ public class UserControllerTest {
 
 		userRequest.setAddress(null);
 		
-		assertResults(userRequest);	
+		assertResult(userRequest);	
 	}
 	
 	@Test
 	public void accountCreationCompanyMissing() throws Exception {
 		userRequest.setCompany(null);
 		
-		assertResults(userRequest);	
+		assertResult(userRequest);	
 	}
 	
 	@Test
 	public void accountCreationCompanyNameMissing() throws Exception {
 		userRequest.getCompany().setName(null);
 		
-		assertResults(userRequest);	
+		assertResult(userRequest);	
 	}
 	
 	@Test
 	public void accountCreationEmptyJSon() throws Exception {
 		
-		assertResults(new UserRequest());	
+		assertResult(new UserRequest());	
 	}
 	
 	@Test
 	public void accountCreationUserRequestRequestIdMissing() throws Exception {
 		userRequest.setRequestId(null);
 		
-		assertResults(userRequest);	
+		assertResult(userRequest);	
 	}
 	
 	@Test
@@ -114,21 +114,21 @@ public class UserControllerTest {
 		
 		userRequest.setName(null);
 		
-		assertResults(userRequest);
+		assertResult(userRequest);
 	}
 	
 	@Test
 	public void accountCreationUserRequestUserNameMissing() throws Exception {
 		userRequest.setUsername(null);
 		
-		assertResults(userRequest);	
+		assertResult(userRequest);	
 	}
 	
 	@Test
 	public void accountCreationUserRequestPhoneMissing() throws Exception {
 		userRequest.setPhone(null);
 		
-		assertResults(userRequest);
+		assertResult(userRequest);
 	}
 	
 	@Test
@@ -136,7 +136,7 @@ public class UserControllerTest {
 		userRequest.setPhone(null);
 		userRequest.setName(null);
 		
-		assertResults(userRequest);
+		assertResult(userRequest);
 	}
 
 	/**
