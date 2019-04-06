@@ -1,3 +1,4 @@
+
 package com.xyz.jsonproject.controller;
 
 import static org.junit.Assert.assertEquals;
@@ -32,13 +33,6 @@ import com.xyz.jsonproject.service.UserService;
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = ApplcationController.class)
 public class UserControllerTest {
-	
-	Address address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
-	Company company = new Company("Deckow-Crist", "Proactive didactic contingency",
-			"synergize scalable supply-chains");
-	UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
-			"nastasia.net", company);
-	UserResponse userResponse = new UserResponse("99","77","88","100", "Eeeee", "Anfdf", "Sh@annissa.tv", "010-692-6593");
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -53,6 +47,12 @@ public class UserControllerTest {
 	 */
 	@Test
 	public void accountCreation() throws Exception {
+		Address address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
+		Company company = new Company("Deckow-Crist", "Proactive didactic contingency",
+				"synergize scalable supply-chains");
+		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
+				"nastasia.net", company);
+		UserResponse userResponse = new UserResponse("99","77","88","100", "Eeeee", "Anfdf", "Sh@annissa.tv", "010-692-6593");
 		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/accountCreation").accept(MediaType.APPLICATION_JSON)
 				.content(asJsonString(userRequest)).contentType(MediaType.APPLICATION_JSON);
@@ -69,72 +69,105 @@ public class UserControllerTest {
 	
 	@Test
 	public void accountCreationAddressCityMissing() throws Exception {
-		userRequest.getAddress().setCity(null);
+		Address address = new Address("Victor Plains", "Suite 879", null, "90566-7771");
+		Company company = new Company("Deckow-Crist", "Proactive didactic contingency",
+				"synergize scalable supply-chains");
+		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
+				"nastasia.net", company);
 		
-		assertResult(userRequest);	
+		assertResult(userRequest);
 	}
 	
 	@Test
 	public void accountCreationAddressMissing() throws Exception {
 
-		userRequest.setAddress(null);
+		Company company = new Company("Deckow-Crist", "Proactive didactic contingency",
+				"synergize scalable supply-chains");
+		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", null, "010-692-6593",
+				"nastasia.net", company);
 		
-		assertResult(userRequest);	
+		assertResult(userRequest);
 	}
 	
 	@Test
 	public void accountCreationCompanyMissing() throws Exception {
-		userRequest.setCompany(null);
+		Address address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
+	
+		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
+				"nastasia.net", null);
 		
-		assertResult(userRequest);	
+		assertResult(userRequest);
 	}
 	
 	@Test
 	public void accountCreationCompanyNameMissing() throws Exception {
-		userRequest.getCompany().setName(null);
+		Address address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
+	
+		Company company = new Company(null, "Proactive didactic contingency",
+				"synergize scalable supply-chains");
 		
-		assertResult(userRequest);	
+		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
+				"nastasia.net", company);
+		
+		assertResult(userRequest);
 	}
 	
 	@Test
 	public void accountCreationEmptyJSon() throws Exception {
 		
-		assertResult(new UserRequest());	
+		UserRequest userRequest = new UserRequest();
+		
+		assertResult(userRequest);
 	}
 	
 	@Test
 	public void accountCreationUserRequestRequestIdMissing() throws Exception {
-		userRequest.setRequestId(null);
+		Address address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
+	
+		Company company = new Company(null, "Proactive didactic contingency",
+				"synergize scalable supply-chains");
 		
-		assertResult(userRequest);	
+		UserRequest userRequest = new UserRequest(null,"77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
+				"nastasia.net", company);
+		
+		assertResult(userRequest);
 	}
 	
 	@Test
 	public void accountCreationUserRequestNameMissing() throws Exception {
+		Address address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
+	
+		Company company = new Company(null, "Proactive didactic contingency",
+				"synergize scalable supply-chains");
 		
-		userRequest.setName(null);
+		UserRequest userRequest = new UserRequest("99","77","88", null, "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
+				"nastasia.net", company);
 		
 		assertResult(userRequest);
 	}
 	
 	@Test
 	public void accountCreationUserRequestUserNameMissing() throws Exception {
-		userRequest.setUsername(null);
-		
-		assertResult(userRequest);	
-	}
+		Address address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
 	
-	@Test
-	public void accountCreationUserRequestPhoneMissing() throws Exception {
-		userRequest.setPhone(null);
+		Company company = new Company(null, "Proactive didactic contingency",
+				"synergize scalable supply-chains");
+		
+		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", null, "Sh@annissa.tv", address, "010-692-6593",
+				"nastasia.net", company);
 		
 		assertResult(userRequest);
 	}
 	
 	@Test
-	public void accountCreationUserRequestPhonenNameMissing() throws Exception {
-		userRequest.setPhone(null);
-		userRequest.setName(null);
+	public void accountCreationUserRequestPhoneMissing() throws Exception {
+		Address address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
+	
+		Company company = new Company(null, "Proactive didactic contingency",
+				"synergize scalable supply-chains");
+		
+		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, null,
+				"nastasia.net", company);
 		
 		assertResult(userRequest);
 	}
