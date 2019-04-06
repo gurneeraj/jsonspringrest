@@ -33,6 +33,13 @@ import com.xyz.jsonproject.service.UserService;
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = ApplcationController.class)
 public class UserControllerTest {
+	
+	Address address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
+	Company company = new Company("Deckow-Crist", "Proactive didactic contingency",
+			"synergize scalable supply-chains");
+	UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
+			"nastasia.net", company);
+	
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -47,13 +54,10 @@ public class UserControllerTest {
 	 */
 	@Test
 	public void accountCreation() throws Exception {
-		Address address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
-		Company company = new Company("Deckow-Crist", "Proactive didactic contingency",
-				"synergize scalable supply-chains");
-		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
-				"nastasia.net", company);
+		
 		UserResponse userResponse = new UserResponse("99","77","88","100", "Eeeee", "Anfdf", "Sh@annissa.tv", "010-692-6593");
 		
+	
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/accountCreation").accept(MediaType.APPLICATION_JSON)
 				.content(asJsonString(userRequest)).contentType(MediaType.APPLICATION_JSON);
 
@@ -69,45 +73,28 @@ public class UserControllerTest {
 	
 	@Test
 	public void accountCreationAddressCityMissing() throws Exception {
-		Address address = new Address("Victor Plains", "Suite 879", null, "90566-7771");
-		Company company = new Company("Deckow-Crist", "Proactive didactic contingency",
-				"synergize scalable supply-chains");
-		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
-				"nastasia.net", company);
+		userRequest.getAddress().setCity(null);
 		
 		assertResult(userRequest);
 	}
 	
 	@Test
 	public void accountCreationAddressMissing() throws Exception {
-
-		Company company = new Company("Deckow-Crist", "Proactive didactic contingency",
-				"synergize scalable supply-chains");
-		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", null, "010-692-6593",
-				"nastasia.net", company);
+		userRequest .setAddress(null);
 		
 		assertResult(userRequest);
 	}
 	
 	@Test
 	public void accountCreationCompanyMissing() throws Exception {
-		Address address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
-	
-		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
-				"nastasia.net", null);
+		userRequest .setCompany(null);
 		
 		assertResult(userRequest);
 	}
 	
 	@Test
 	public void accountCreationCompanyNameMissing() throws Exception {
-		Address address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
-	
-		Company company = new Company(null, "Proactive didactic contingency",
-				"synergize scalable supply-chains");
-		
-		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
-				"nastasia.net", company);
+		userRequest.getCompany().setName(null);
 		
 		assertResult(userRequest);
 	}
@@ -115,59 +102,41 @@ public class UserControllerTest {
 	@Test
 	public void accountCreationEmptyJSon() throws Exception {
 		
-		UserRequest userRequest = new UserRequest();
-		
-		assertResult(userRequest);
+		assertResult(new UserRequest());
 	}
 	
 	@Test
 	public void accountCreationUserRequestRequestIdMissing() throws Exception {
-		Address address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
-	
-		Company company = new Company(null, "Proactive didactic contingency",
-				"synergize scalable supply-chains");
-		
-		UserRequest userRequest = new UserRequest(null,"77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
-				"nastasia.net", company);
+		userRequest.setRequestId(null);
 		
 		assertResult(userRequest);
 	}
 	
 	@Test
 	public void accountCreationUserRequestNameMissing() throws Exception {
-		Address address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
-	
-		Company company = new Company(null, "Proactive didactic contingency",
-				"synergize scalable supply-chains");
-		
-		UserRequest userRequest = new UserRequest("99","77","88", null, "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
-				"nastasia.net", company);
+		userRequest.setName(null);
 		
 		assertResult(userRequest);
 	}
 	
 	@Test
 	public void accountCreationUserRequestUserNameMissing() throws Exception {
-		Address address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
-	
-		Company company = new Company(null, "Proactive didactic contingency",
-				"synergize scalable supply-chains");
-		
-		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", null, "Sh@annissa.tv", address, "010-692-6593",
-				"nastasia.net", company);
+		userRequest.setUsername(null);
 		
 		assertResult(userRequest);
 	}
 	
 	@Test
 	public void accountCreationUserRequestPhoneMissing() throws Exception {
-		Address address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
-	
-		Company company = new Company(null, "Proactive didactic contingency",
-				"synergize scalable supply-chains");
+		userRequest.setPhone(null);
 		
-		UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, null,
-				"nastasia.net", company);
+		assertResult(userRequest);
+	}
+	
+	@Test
+	public void accountCreationUserRequestNamenPhoneMissing() throws Exception {
+		userRequest.setName(null);
+		userRequest.setPhone(null);
 		
 		assertResult(userRequest);
 	}
@@ -202,3 +171,4 @@ public class UserControllerTest {
 	}
 
 }
+
