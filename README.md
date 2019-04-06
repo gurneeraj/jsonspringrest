@@ -7,4 +7,4 @@ All the validation exceptions(MethodArgumentNotValidException) are handled in Ap
 
 Also attached screen-shot of successful completion of different test cases. 
 
-## https://gurneeraj.github.io/jsonspringrest/
+
