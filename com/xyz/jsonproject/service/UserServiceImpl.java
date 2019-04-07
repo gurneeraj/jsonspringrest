@@ -15,7 +15,7 @@ import com.xyz.jsonproject.model.UserResponse;
 public class UserServiceImpl implements UserService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
-
+	
 	/* 
 	 * Logs the UserRequest and returns UserResponse
 	 */
@@ -25,8 +25,8 @@ public class UserServiceImpl implements UserService {
 		// This code generates random number for application id.
 		String applicationId = Integer.toString((int) (Math.random()*100));
 		
-		LOGGER.info("Inside service's accountCreation(): logging UserRequest object "+ userRequest.getName()+" "+userRequest.getRequestId());
-		LOGGER.debug("Inside service's accountCreation(): logging UserRequest object "+ userRequest);
+		LOGGER.info("Inside service's accountCreation(): Name: "+ userRequest.getName()+" RequestId: "+userRequest.getRequestId());
+		LOGGER.debug("Inside service's accountCreation():  "+ userRequest);
 		
 		// This code is emulating a fetch from database and returning UserResponse data with application id.
 		// UserResponse will only display RequestId, UserId, ClientId, ApplicationId, Name, Username, Email and Phone
@@ -40,9 +40,9 @@ public class UserServiceImpl implements UserService {
 		userResponse.setEmail(userRequest.getEmail());
 		userResponse.setPhone(userRequest.getPhone());
 		
-		LOGGER.info("Inside service's accountCreation(): logging UserResponse object "+ userResponse.getName()+" "+userResponse.getRequestId()+" "+userResponse.getApplicationId());
+		LOGGER.info("Inside service's accountCreation(): Name: "+ userResponse.getName()+" RequestId: "+userResponse.getRequestId()+" ApplicationId:"+userResponse.getApplicationId());
+		LOGGER.debug("Inside service's accountCreation():  "+ userResponse);
 		
 		return userResponse;
 	}
-
 }
