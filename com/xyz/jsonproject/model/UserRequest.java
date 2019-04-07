@@ -120,7 +120,8 @@ public class UserRequest extends WebRequest {
 
 	@Override
 	public String toString() {
-		return "UserRequest [name=" + name + ", username=" + username + ", email=" + email + ", address=" + address
+		
+		return super.toString()+" "+"UserRequest [name=" + name + ", username=" + username + ", email=" + email + ", address=" + address
 				+ ", phone=" + phone + ", website=" + website + ", company=" + company + "]";
 	}
 
