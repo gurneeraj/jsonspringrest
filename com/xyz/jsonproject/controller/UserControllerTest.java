@@ -1,4 +1,3 @@
-
 package com.xyz.jsonproject.controller;
 
 import static org.junit.Assert.assertEquals;
@@ -59,7 +58,7 @@ public class UserControllerTest {
 	}
 
 	/**
-	 * Method tests the 201 httpstatus on accountCreation() method in ApplicationController class 
+	 * Method tests the 201 HttpStatus on accountCreation() method in ApplicationController class 
 	 * and the output with expected result
 	 * 
 	 * @throws Exception
@@ -71,7 +70,7 @@ public class UserControllerTest {
 	}
 	
 	/**
-	 * Method tests the 400 httpstatus on missing address.city in JSon and the output with expected result
+	 * Method tests the 400 HttpStatus on missing address.city in JSon and the output with expected result
 	 *
 	 * @throws Exception
 	 */
@@ -83,7 +82,7 @@ public class UserControllerTest {
 	}
 	
 	/**
-	 * Method tests the 400 httpstatus on missing adddress in JSon and the output with expected result
+	 * Method tests the 400 HttpStatus on missing address in JSon and the output with expected result
 	 *
 	 * @throws Exception
 	 */
@@ -95,7 +94,7 @@ public class UserControllerTest {
 	}
 	
 	/**
-	 * Method tests the 400 httpstatus on missing company in JSon and the output with expected result
+	 * Method tests the 400 HttpStatus on missing company in JSon and the output with expected result
 	 *
 	 * @throws Exception
 	 */
@@ -107,7 +106,7 @@ public class UserControllerTest {
 	}
 	
 	/**
-	 * Method tests the 400 httpstatus on missing company.name in JSon and the output with expected result
+	 * Method tests the 400 HttpStatus on missing company.name in JSon and the output with expected result
 	 *
 	 * @throws Exception
 	 */
@@ -119,7 +118,7 @@ public class UserControllerTest {
 	}
 	
 	/**
-	 * Method tests the 400 httpstatus on empty JSon and the output with expected result
+	 * Method tests the 400 HttpStatus on empty JSon and the output with expected result
 	 *
 	 * @throws Exception
 	 */
@@ -130,7 +129,7 @@ public class UserControllerTest {
 	}
 	
 	/**
-	 * Method tests the 400 httpstatus on missing requestId in JSon and the output with expected result
+	 * Method tests the 400 HttpStatus on missing requestId in JSon and the output with expected result
 	 *
 	 * @throws Exception
 	 */
@@ -142,7 +141,7 @@ public class UserControllerTest {
 	}
 	
 	/**
-	 * Method tests the 400 httpstatus on missing name in JSon and the output with expected result
+	 * Method tests the 400 HttpStatus on missing name in JSon and the output with expected result
 	 *
 	 * @throws Exception
 	 */
@@ -154,7 +153,7 @@ public class UserControllerTest {
 	}
 	
 	/**
-	 * Method tests the 400 httpstatus on missing username in JSon and the output with expected result
+	 * Method tests the 400 HttpStatus on missing Username in JSon and the output with expected result
 	 *
 	 * @throws Exception
 	 */
@@ -166,7 +165,7 @@ public class UserControllerTest {
 	}
 	
 	/**
-	 * Method tests the 400 httpstatus on missing phone in JSon and the output with expected result
+	 * Method tests the 400 HttpStatus on missing phone in JSon and the output with expected result
 	 *
 	 * @throws Exception
 	 */
@@ -178,7 +177,7 @@ public class UserControllerTest {
 	}
 	
 	/**
-	 * Method tests the 400 httpstatus on missing name and phone in JSon and the output with expected result
+	 * Method tests the 400 HttpStatus on missing name and phone in JSon and the output with expected result
 	 *
 	 * @throws Exception
 	 */
@@ -207,7 +206,7 @@ public class UserControllerTest {
 	/**
 	 * Method tests the various test-cases based on input parameters
 	 *
-	 * @param userRequest : Userrequest for different test cases
+	 * @param userRequest : UserRequest for different test cases
 	 * @param expectedStatus: Expected status for different test cases
 	 * @param expectedResult: Expected result for different test cases
 	 * @throws Exception
@@ -230,4 +229,3 @@ public class UserControllerTest {
 	}
 
 }
-
