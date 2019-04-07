@@ -37,12 +37,12 @@ public class ApplcationController {
 	@PostMapping(path = "/accountCreation", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<UserResponse> accountCreation(@Valid @RequestBody UserRequest userRequest) {
 		
-		LOGGER.info("Inside controller's accountCreation() before service call "+ userRequest.getName()+" "+userRequest.getRequestId());
-		LOGGER.debug("Inside controller's accountCreation() for "+ userRequest);
+		LOGGER.info("Inside controller's accountCreation(): Before service call: Name: "+ userRequest.getName()+" RequestId: "+userRequest.getRequestId());
+		LOGGER.debug("Inside controller's accountCreation(): "+ userRequest);
 		
 		UserResponse returnedUser = userService.accountCreation(userRequest);
 		
-		LOGGER.info("Inside controller's accountCreation() after service call "+ returnedUser.getName()+" "+returnedUser.getRequestId()+" "+returnedUser.getApplicationId());
+		LOGGER.info("Inside controller's accountCreation(): After service call: Name: "+ returnedUser.getName()+" RequestId: "+returnedUser.getRequestId()+" ApplicationId: "+returnedUser.getApplicationId());
 		
 		return new ResponseEntity<>(returnedUser,HttpStatus.CREATED);
 		
