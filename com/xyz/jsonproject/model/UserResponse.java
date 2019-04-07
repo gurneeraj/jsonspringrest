@@ -69,10 +69,10 @@ public class UserResponse extends WebResponse{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "UserResponse [applicationId=" + applicationId + ", name=" + name + ", username=" + username + ", email="
+		return super.toString()+"UserResponse [applicationId=" + applicationId + ", name=" + name + ", username=" + username + ", email="
 				+ email + ", phone=" + phone + "]";
 	}
 	
