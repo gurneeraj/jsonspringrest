@@ -3,9 +3,12 @@ package com.xyz.jsonproject.controller;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -34,111 +37,157 @@ import com.xyz.jsonproject.service.UserService;
 @WebMvcTest(value = ApplcationController.class)
 public class UserControllerTest {
 	
-	Address address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
-	Company company = new Company("Deckow-Crist", "Proactive didactic contingency",
-			"synergize scalable supply-chains");
-	UserRequest userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
-			"nastasia.net", company);
+	Address address;
+	Company company;
+	UserRequest userRequest;
+	UserResponse userResponse;
 	
-
 	@Autowired
 	private MockMvc mockMvc;
 
 	@MockBean
 	UserService userService;
+	
+	@Before
+	public void intializeEntities() {
+		address = new Address("Victor Plains", "Suite 879", "Wisokyburgh", "90566-7771");
+		company = new Company("Deckow-Crist", "Proactive didactic contingency",
+				"synergize scalable supply-chains");
+		userRequest = new UserRequest("99","77","88", "Eeeee", "Anfdf", "Sh@annissa.tv", address, "010-692-6593",
+				"nastasia.net", company);
+		userResponse = new UserResponse("99","77","88","100", "Eeeee", "Anfdf", "Sh@annissa.tv", "010-692-6593");
+	}
 
 	/**
-	 * Method tests the accountCreation() method in ApplicationController class
+	 * Method tests the 201 httpstatus on accountCreation() method in ApplicationController class 
+	 * and the output with expected result
 	 * 
 	 * @throws Exception
 	 */
 	@Test
 	public void accountCreation() throws Exception {
 		
-		UserResponse userResponse = new UserResponse("99","77","88","100", "Eeeee", "Anfdf", "Sh@annissa.tv", "010-692-6593");
-		
-	
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/accountCreation").accept(MediaType.APPLICATION_JSON)
-				.content(asJsonString(userRequest)).contentType(MediaType.APPLICATION_JSON);
-
-		Mockito.when(userService.accountCreation(Mockito.any(UserRequest.class))).thenReturn(userResponse);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		MockHttpServletResponse response = result.getResponse();
-
-		assertEquals(HttpStatus.CREATED.value(), response.getStatus());
-		
+		assertResult(HttpStatus.CREATED.value(), userRequest, asJsonString(userResponse));
 	}
 	
+	/**
+	 * Method tests the 400 httpstatus on missing address.city in JSon and the output with expected result
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	public void accountCreationAddressCityMissing() throws Exception {
 		userRequest.getAddress().setCity(null);
-		
-		assertResult(userRequest);
+		String errorResponse = "{\"status\":\"400\",\"address.city\":\"City name is mandatory\"}";
+		assertResult(HttpStatus.BAD_REQUEST.value(), userRequest, errorResponse);
 	}
 	
+	/**
+	 * Method tests the 400 httpstatus on missing adddress in JSon and the output with expected result
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	public void accountCreationAddressMissing() throws Exception {
 		userRequest .setAddress(null);
-		
-		assertResult(userRequest);
+		String errorResponse = "{\"status\":\"400\",\"address\":\"Address is mandatory\"}";
+		assertResult(HttpStatus.BAD_REQUEST.value(), userRequest, errorResponse);
 	}
 	
+	/**
+	 * Method tests the 400 httpstatus on missing company in JSon and the output with expected result
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	public void accountCreationCompanyMissing() throws Exception {
 		userRequest .setCompany(null);
-		
-		assertResult(userRequest);
+		String errorResponse = "{\"status\":\"400\",\"company\":\"Company is mandatory\"}";
+		assertResult(HttpStatus.BAD_REQUEST.value(), userRequest, errorResponse);
 	}
 	
+	/**
+	 * Method tests the 400 httpstatus on missing company.name in JSon and the output with expected result
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	public void accountCreationCompanyNameMissing() throws Exception {
 		userRequest.getCompany().setName(null);
-		
-		assertResult(userRequest);
+		String errorResponse = "{\"status\":\"400\",\"company.name\":\"Company name is mandatory\"}";
+		assertResult(HttpStatus.BAD_REQUEST.value(), userRequest, errorResponse);
 	}
 	
+	/**
+	 * Method tests the 400 httpstatus on empty JSon and the output with expected result
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	public void accountCreationEmptyJSon() throws Exception {
-		
-		assertResult(new UserRequest());
+		String errorResponse = "{\"status\":\"400\"}";
+		assertResult(HttpStatus.BAD_REQUEST.value(), new UserRequest(), errorResponse);
 	}
 	
+	/**
+	 * Method tests the 400 httpstatus on missing requestId in JSon and the output with expected result
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	public void accountCreationUserRequestRequestIdMissing() throws Exception {
 		userRequest.setRequestId(null);
-		
-		assertResult(userRequest);
+		String errorResponse = "{\"status\":\"400\",\"requestId\":\"RequestId is mandatory\"}";
+		assertResult(HttpStatus.BAD_REQUEST.value(), userRequest, errorResponse);
 	}
 	
+	/**
+	 * Method tests the 400 httpstatus on missing name in JSon and the output with expected result
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	public void accountCreationUserRequestNameMissing() throws Exception {
 		userRequest.setName(null);
-		
-		assertResult(userRequest);
+		String errorResponse = "{\"status\":\"400\",\"name\":\"Name is mandatory\"}";
+		assertResult(HttpStatus.BAD_REQUEST.value(), userRequest, errorResponse);
 	}
 	
+	/**
+	 * Method tests the 400 httpstatus on missing username in JSon and the output with expected result
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	public void accountCreationUserRequestUserNameMissing() throws Exception {
 		userRequest.setUsername(null);
-		
-		assertResult(userRequest);
+		String errorResponse = "{\"status\":\"400\",\"username\":\"Username is mandatory\"}";
+		assertResult(HttpStatus.BAD_REQUEST.value(), userRequest, errorResponse);
 	}
 	
+	/**
+	 * Method tests the 400 httpstatus on missing phone in JSon and the output with expected result
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	public void accountCreationUserRequestPhoneMissing() throws Exception {
 		userRequest.setPhone(null);
-		
-		assertResult(userRequest);
+		String errorResponse = "{\"status\":\"400\",\"phone\":\"Phone is mandatory\"}";
+		assertResult(HttpStatus.BAD_REQUEST.value(), userRequest, errorResponse);
 	}
 	
+	/**
+	 * Method tests the 400 httpstatus on missing name and phone in JSon and the output with expected result
+	 *
+	 * @throws Exception
+	 */
 	@Test
 	public void accountCreationUserRequestNamenPhoneMissing() throws Exception {
 		userRequest.setName(null);
 		userRequest.setPhone(null);
-		
-		assertResult(userRequest);
+		String errorResponse = "{\"status\":\"400\",\"name\":\"Name is mandatory\", \"phone\":\"Phone is mandatory\"}";
+		assertResult(HttpStatus.BAD_REQUEST.value(), userRequest, errorResponse);
 	}
 
 	/**
@@ -156,18 +205,28 @@ public class UserControllerTest {
 	}
 	
 	/**
-	 * @param userRequest takes as input
+	 * Method tests the various test-cases based on input parameters
+	 *
+	 * @param userRequest : Userrequest for different test cases
+	 * @param expectedStatus: Expected status for different test cases
+	 * @param expectedResult: Expected result for different test cases
 	 * @throws Exception
+	 *
 	 */
-	private void assertResult(UserRequest userRequest) throws Exception {
+	private void assertResult(int expectedStatus, UserRequest userRequest, String expectedResult) throws Exception {
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/accountCreation").accept(MediaType.APPLICATION_JSON)
 				.content(asJsonString(userRequest)).contentType(MediaType.APPLICATION_JSON);
-
+		
+		Mockito.when(userService.accountCreation(Mockito.any(UserRequest.class))).thenReturn(userResponse);
+		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
 		MockHttpServletResponse response = result.getResponse();
 
-		assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatus());
+		assertEquals(expectedStatus, response.getStatus());
+		
+		JSONAssert.assertEquals(expectedResult, result.getResponse()
+				.getContentAsString(), JSONCompareMode.LENIENT);
 	}
 
 }
