@@ -7,8 +7,6 @@ If there are any validation errors then it prompts the client with error details
 
 All the validation errors(MethodArgumentNotValidException) are handled in ApplicationRestExceptionHandler class.
 
-Also attached screen-shot of successful completion of different test cases. 
-
 Path for the application is /jsonproject/accountCreation.
 
 
